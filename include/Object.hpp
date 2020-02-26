@@ -3,7 +3,8 @@
 
 class Object
 {
-
+public:
+    virtual void draw() = 0;
 };
 
 #endif //OOP_GL_OBJECT_HPP
