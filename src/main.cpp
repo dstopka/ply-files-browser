@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv)
 {
-    Dimension<std::pair<double, double>> minMax;
-    std::cout << "Hello, World!" << std::endl;
+    Data data = readFile(argv[1]);
+
     return 0;
 }

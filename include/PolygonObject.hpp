@@ -9,6 +9,7 @@ class PolygonObject : public Object
 {
 public:
     PolygonObject(const std::vector<float> &vertices, const std::vector<int> &elements);
+    void draw();
 private:
     std::vector<float> vertices;
     std::vector<int> elements;

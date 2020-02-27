@@ -9,6 +9,7 @@ class TriangleObject : public Object
 {
 public:
     TriangleObject(const std::vector<GLfloat> &vertices, const std::vector<int> &elements);
+    void draw();
 private:
     std::vector<GLfloat> vertices;
     std::vector<int> elements;

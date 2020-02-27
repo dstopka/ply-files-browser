@@ -11,7 +11,7 @@
 class GLWindow
 {
 public:
-    GLWindow();
+    GLWindow(const Data &data);
     void initScene();
     void drawScene();
     void keyboardInput(GLubyte key, int x, int y);

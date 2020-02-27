@@ -1,4 +1,15 @@
 #include <GLWindow.hpp>
+#include <GridObject.hpp>
+#include <PolygonObject.hpp>
+#include <TriangleObject.hpp>
+#include <Object.hpp>
+
+GLWindow::GLWindow(const Data &data)
+{
+    this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
+    this->drawables.push_back(std::make_shared<GridObject>(data.vertices, data.polygonElements));
+    this->drawables.push_back(std::make_shared<PolygonObject>(data.vertices, data.triangleElements));
+}
 
 void GLWindow::initScene()
 {
@@ -62,3 +73,5 @@ void GLWindow::idle()
 {
     glutPostRedisplay();
 }
+
+
