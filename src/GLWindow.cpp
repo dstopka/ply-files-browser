@@ -10,6 +10,8 @@
 
 GLWindow::GLWindow(const Data &data)
 {
+    this->shader = loadShaders("shaders/vertex_shader.glsl",
+            "shaders/fragment_shader.glsl");
     this->drawables.push_back(std::make_shared<GridObject>(data.minMaxValues));
     if(!data.triangleElements.empty())
         this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
@@ -41,13 +43,16 @@ void GLWindow::keyboardInput(GLubyte key, int x, int y)
     {
         case 27:
             exit(1);
+        default:
+            break;
     }
 }
 
 void GLWindow::mousePosition(int button, int state, int x, int y)
 {
     mouse.button = button;
-    switch (state) {
+    switch (state)
+    {
         case GLUT_UP:
             break;
         case GLUT_DOWN:
@@ -57,6 +62,8 @@ void GLWindow::mousePosition(int button, int state, int x, int y)
             previousCameraPosition.y = cameraPosition.y;
             previousCameraPosition.z = cameraPosition.z;
             previousCameraPosition.d = cameraPosition.d;
+            break;
+        default:
             break;
     }
 }
@@ -102,8 +109,11 @@ void GLWindow::display()
     MV = glm::rotate(MV, (float) glm::radians(cameraPosition.y), glm::vec3(0, 0, 1));
     P = glm::perspective(glm::radians(60.0f), (GLfloat) windowWidth / (GLfloat) windowHeight, 1.0f, 1000.0f);
     glm::mat4 MVP = P * MV;
-
-
+    GLuint MVP_id = glGetUniformLocation(this->shader, "MVP");
+    glUniformMatrix4fv(MVP_id, 1, GL_FALSE,
+                       &(MVP[0][0]));
+    for(auto &x : this->drawables)
+        x->draw();
     glFlush();
     glutSwapBuffers();
 }

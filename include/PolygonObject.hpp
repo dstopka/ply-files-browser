@@ -15,6 +15,7 @@ private:
     std::vector<int> elements;
     unsigned int VBO;
     GLuint ebo;
+    unsigned int VAO;
 };
 
 #endif //OOP_GL_POLYGONOBJECT_HPP

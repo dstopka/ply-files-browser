@@ -20,6 +20,7 @@ private:
     unsigned int VBODottedLines;
     GLuint eboWrappingLines;
     GLuint eboDottedLines;
+    unsigned int VAO;
 };
 
 #endif //OOP_GL_GRIDOBJECT_HPP

@@ -8,6 +8,7 @@
 #include <memory>
 #include <glm/mat4x4.hpp>
 #include <Toolpack.hpp>
+#include <shaderLoader.h>
 
 
 class GLWindow
@@ -39,6 +40,7 @@ private:
     static GLWindow *instance;
     int windowWidth = 640;
     int windowHeight = 480;
+    GLuint shader;
 };
 
 #endif //OOP_GL_GLWINDOW_HPP

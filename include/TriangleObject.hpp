@@ -9,13 +9,13 @@ class TriangleObject : public Object
 {
 public:
     TriangleObject(const std::vector<GLfloat> &vertices, const std::vector<int> &elements);
-    void drawSolid();
-    void drawOutline();
+    void draw();
 private:
     std::vector<GLfloat> vertices;
     std::vector<int> elements;
     unsigned int VBO;
     GLuint ebo;
+    unsigned int VAO;
 };
 
 #endif //OOP_GL_TRIANGLEOBJECT_HPP
