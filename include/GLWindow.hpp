@@ -6,22 +6,39 @@
 #include <utility>
 #include <vector>
 #include <memory>
-#include "Toolpack.hpp"
+#include <glm/mat4x4.hpp>
+#include <Toolpack.hpp>
+
 
 class GLWindow
 {
 public:
+
+public:
     GLWindow(const Data &data);
-    void initScene();
-    void drawScene();
+    void initScene(int &argc, char** &argv);
+    void display();
     void keyboardInput(GLubyte key, int x, int y);
     void mousePosition(int button, int state, int x, int y);
     void mouseMove(int x, int y);
+    void size(int width, int height);
     void idle();
+    static void displayWrapper();
+    static void keyboardInputWrapper(GLubyte key, int x, int y);
+    static void mousePositionWrapper(int button, int state, int x, int y);
+    static void mouseMoveWrapper(int x, int y);
+    static void idleWrapper();
+    static void sizeWrapper(int width, int height);
+    void setInstance();
+
 private:
     std::vector<std::shared_ptr<Object>> drawables;
     Dimension<double> cameraPosition;
     Dimension<double> previousCameraPosition;
+    Mouse mouse;
+    static GLWindow *instance;
+    int windowWidth = 640;
+    int windowHeight = 480;
 };
 
 #endif //OOP_GL_GLWINDOW_HPP

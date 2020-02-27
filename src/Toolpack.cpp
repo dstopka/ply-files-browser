@@ -65,13 +65,13 @@ Dimension<std::pair<double, double>> findMinMax(std::vector<GLfloat> &vertices)
         if(vertices[i] > minMax.x.second)
             minMax.x.second = vertices[i];
         if(vertices[i+1] < minMax.y.first)
-            minMax.y.first = vertices[i];
+            minMax.y.first = vertices[i+1];
         if(vertices[i+1] > minMax.y.second)
-            minMax.y.second = vertices[i];
+            minMax.y.second = vertices[i+1];
         if(vertices[i+2] < minMax.z.first)
-            minMax.z.first = vertices[i];
+            minMax.z.first = vertices[i+2];
         if(vertices[i+2] > minMax.z.second)
-            minMax.z.second = vertices[i];
+            minMax.z.second = vertices[i+2];
     }
     return minMax;
 }

@@ -1,6 +1,6 @@
 #include "GridObject.hpp"
 
-GridObject::GridObject(Dimension<std::pair<double, double>> minMaxValues)
+GridObject::GridObject(const Dimension<std::pair<double, double>> &minMaxValues)
 {
 
 }

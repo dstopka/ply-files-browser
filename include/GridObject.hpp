@@ -9,7 +9,7 @@
 class GridObject : public Object
 {
 public:
-    GridObject(Dimension<std::pair<double, double>> minMaxValues);
+    explicit GridObject(const Dimension<std::pair<double, double>> &minMaxValues);
     void draw();
 private:
     std::vector<float> verticesWrappingLines;

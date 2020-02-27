@@ -4,7 +4,8 @@
 class Object
 {
 public:
-    virtual void draw() = 0;
+    virtual void drawSolid() = 0;
+    virtual void drawOutline() = 0;
 };
 
 #endif //OOP_GL_OBJECT_HPP

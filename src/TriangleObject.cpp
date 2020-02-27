@@ -3,7 +3,14 @@
 TriangleObject::TriangleObject(const std::vector<GLfloat> &vertices, const std::vector<int> &elements)
                                 : vertices(vertices), elements(elements) {}
 
-void TriangleObject::draw()
+void TriangleObject::drawSolid()
 {
 
 }
+
+void TriangleObject::drawOutline()
+{
+
+}
+
+

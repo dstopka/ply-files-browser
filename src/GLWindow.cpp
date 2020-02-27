@@ -3,75 +3,144 @@
 #include <PolygonObject.hpp>
 #include <TriangleObject.hpp>
 #include <Object.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 GLWindow::GLWindow(const Data &data)
 {
-    this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
-    this->drawables.push_back(std::make_shared<GridObject>(data.vertices, data.polygonElements));
-    this->drawables.push_back(std::make_shared<PolygonObject>(data.vertices, data.triangleElements));
+    this->drawables.push_back(std::make_shared<GridObject>(data.minMaxValues));
+    if(!data.triangleElements.empty())
+        this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
+    if(!data.polygonElements.empty())
+    this->drawables.push_back(std::make_shared<PolygonObject>(data.vertices, data.polygonElements));
 }
 
-void GLWindow::initScene()
+void GLWindow::initScene(int &argc, char** &argv)
 {
+    setInstance();
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitWindowSize(this->windowWidth, this->windowHeight);
+    glutCreateWindow(argv[1]);
+    glewInit();
+    glutReshapeFunc(sizeWrapper);
+    glutIdleFunc(idleWrapper);
+    glutMouseFunc(mousePositionWrapper);
+    glutMotionFunc(mouseMoveWrapper);
+    glutDisplayFunc(displayWrapper);
+    glutKeyboardFunc(keyboardInputWrapper);
 
-}
-
-void GLWindow::drawScene()
-{
-
+    glutMainLoop();
 }
 
 void GLWindow::keyboardInput(GLubyte key, int x, int y)
 {
-//    switch (key)
-//    {
-//        case 27:
-//            exit(1);
-//            break;
-//        case 'x':
-//            dx += 1;
-//            break;
-//        case '1':
-//            cameraX +=1;
-//            break;
-//        case '2':
-//            cameraX -=1;
-//            break;
-//    }
+    switch (key)
+    {
+        case 27:
+            exit(1);
+    }
 }
 
 void GLWindow::mousePosition(int button, int state, int x, int y)
 {
-//    mbutton = button;
-//    switch (state) {
-//        case GLUT_UP:
-//            break;
-//        case GLUT_DOWN:
-//            mousePositionX = x;
-//            mousePositionY = y;
-//            previousCameraX = cameraX;
-//            previousCameraZ = cameraZ;
-//            previousCameraD = cameraD;
-//            previousCameraY = cameraY;
-//            break;
-//    }
+    mouse.button = button;
+    switch (state) {
+        case GLUT_UP:
+            break;
+        case GLUT_DOWN:
+            mouse.x = x;
+            mouse.y = y;
+            previousCameraPosition.x = cameraPosition.x;
+            previousCameraPosition.y = cameraPosition.y;
+            previousCameraPosition.z = cameraPosition.z;
+            previousCameraPosition.d = cameraPosition.d;
+            break;
+    }
 }
 
 void GLWindow::mouseMove(int x, int y)
 {
-//    if (mbutton == GLUT_LEFT_BUTTON) {
-//        cameraX = previousCameraX - (mousePositionX - x) * 0.1;
-//        cameraZ = previousCameraZ - (mousePositionY - y) * 0.1;
-//    }
-//    if (mbutton == GLUT_RIGHT_BUTTON) {
-//        cameraD = previousCameraD + (mousePositionY - y) * 0.1;
-//        cameraY = previousCameraY - (mousePositionX - x) * 0.1;
-//    }
+    if (mouse.button == GLUT_LEFT_BUTTON) {
+        cameraPosition.x = previousCameraPosition.x - (mouse.x - x) * 0.1;
+        cameraPosition.z = previousCameraPosition.z - (mouse.y - y) * 0.1;
+    }
+    if (mouse.button == GLUT_RIGHT_BUTTON) {
+        cameraPosition.d = previousCameraPosition.d + (mouse.y - y) * 0.1;
+        cameraPosition.y = previousCameraPosition.y - (mouse.x - x) * 0.1;
+    }
 }
 
 void GLWindow::idle()
 {
     glutPostRedisplay();
+}
+
+void GLWindow::size(int width, int height)
+{
+    this->windowWidth = width;
+    this->windowHeight = height;
+    glViewport(0, 0, width, height);
+
+    //P = glm::perspective(glm::radians(60.0f), (GLfloat) screen_width / (GLfloat) screen_height, 1.0f, 1000.0f);
+    //idleWrapper();
+}
+
+void GLWindow::display()
+{
+    glm::mat4 MV;
+    glm::mat4 P;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    std::vector<float> color = { 1,1,1,1 };
+    glClearBufferfv(GL_COLOR, 0, color.data());
+    MV = glm::mat4(1.0f);
+    MV = glm::translate(MV, glm::vec3(0, 0, cameraPosition.d));
+    MV = glm::rotate(MV, (float) glm::radians(cameraPosition.z), glm::vec3(1, 0, 0));
+    MV = glm::rotate(MV, (float) glm::radians(cameraPosition.x), glm::vec3(0, 1, 0));
+    MV = glm::rotate(MV, (float) glm::radians(cameraPosition.y), glm::vec3(0, 0, 1));
+    P = glm::perspective(glm::radians(60.0f), (GLfloat) windowWidth / (GLfloat) windowHeight, 1.0f, 1000.0f);
+    glm::mat4 MVP = P * MV;
+
+
+    glFlush();
+    glutSwapBuffers();
+}
+
+void GLWindow::displayWrapper()
+{
+    instance->display();
+}
+
+void GLWindow::keyboardInputWrapper(GLubyte key, int x, int y)
+{
+    instance->keyboardInput(key, x, y);
+}
+
+void GLWindow::mousePositionWrapper(int button, int state, int x, int y)
+{
+    instance->mousePosition(button, state, x, y);
+}
+
+void GLWindow::mouseMoveWrapper(int x, int y)
+{
+    instance->mouseMove(x, y);
+}
+
+void GLWindow::idleWrapper()
+{
+    instance->idle();
+}
+
+void GLWindow::sizeWrapper(int width, int height)
+{
+    instance->size(width, height);
+}
+
+void GLWindow::setInstance()
+{
+    instance = this;
 }
 
 

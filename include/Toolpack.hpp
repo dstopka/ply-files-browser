@@ -24,6 +24,13 @@ struct Data
     Dimension<std::pair<double, double>> minMaxValues;
 };
 
+struct Mouse
+{
+    int x;
+    int y;
+    int button;
+};
+
 Data readFile(char* path);
 Dimension<std::pair<double, double>> findMinMax(std::vector<GLfloat> &vertices);
 
