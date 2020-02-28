@@ -12,13 +12,18 @@
 
 GLWindow* GLWindow::instance = nullptr;
 
-GLWindow::GLWindow(const Data &data)
+GLWindow::GLWindow()
 {
-    this->drawables.push_back(std::make_shared<GridObject>(data.minMaxValues));
-    if(!data.triangleElements.empty())
-        this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
-    if(!data.polygonElements.empty())
-    this->drawables.push_back(std::make_shared<PolygonObject>(data.vertices, data.polygonElements));
+//    this->drawables.push_back(std::make_shared<GridObject>(data.minMaxValues));
+//    if(!data.triangleElements.empty())
+//        this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
+//    if(!data.polygonElements.empty())
+//    this->drawables.push_back(std::make_shared<PolygonObject>(data.vertices, data.polygonElements));
+}
+
+void GLWindow::addShape(Data data)
+{
+    this->shapes.emplace_back(data);
 }
 
 void GLWindow::initScene(int &argc, char** &argv)

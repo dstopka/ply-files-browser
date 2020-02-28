@@ -10,7 +10,9 @@ class GridObject : public Object
 {
 public:
     explicit GridObject(const Dimension<std::pair<double, double>> &minMaxValues);
-    void draw();
+    void draw() override;
+    void bindBuffers() override;
+    void generateEbo() override;
 private:
     std::vector<float> verticesWrappingLines;
     std::vector<float> verticesDottedLines;

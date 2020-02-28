@@ -8,10 +8,11 @@
 class TriangleObject : public Object
 {
 public:
-    TriangleObject(const std::vector<GLfloat> &vertices, const std::vector<int> &elements);
-    void draw();
+    TriangleObject(const std::vector<int> &elements, const unsigned int &VBO);
+    void draw() override;
+    void bindBuffers() override;
+    void generateEbo() override;
 private:
-    std::vector<GLfloat> vertices;
     std::vector<int> elements;
     unsigned int VBO;
     GLuint ebo;

@@ -9,14 +9,15 @@
 #include <glm/mat4x4.hpp>
 #include <Toolpack.hpp>
 #include <shaderLoader.h>
-
+#include <Shape.hpp>
 
 class GLWindow
 {
 public:
 
 public:
-    GLWindow(const Data &data);
+    GLWindow();
+    void addShape(Data data);
     void initScene(int &argc, char** &argv);
     void display();
     void keyboardInput(GLubyte key, int x, int y);
@@ -33,7 +34,7 @@ public:
     void setInstance();
 
 private:
-    std::vector<std::shared_ptr<Object>> drawables;
+    std::vector<Shape> shapes;
     Dimension<double> cameraPosition;
     Dimension<double> previousCameraPosition;
     Mouse mouse;

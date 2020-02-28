@@ -4,8 +4,9 @@ project(OOP_GL)
 set(CMAKE_CXX_STANDARD 17)
 
 set(HEADERS include/GLWindow.hpp include/Object.hpp include/PolygonObject.hpp include/TriangleObject.hpp
-        include/GridObject.hpp include/Toolpack.hpp include/shaderLoader.h)
-set(SOURCES src/GLWindow.cpp src/PolygonObject.cpp src/TriangleObject.cpp src/GridObject.cpp src/Toolpack.cpp src/shadersLoader.cpp)
+        include/GridObject.hpp include/Toolpack.hpp include/shaderLoader.h include/Shape.hpp)
+set(SOURCES src/GLWindow.cpp src/PolygonObject.cpp src/TriangleObject.cpp src/GridObject.cpp src/Toolpack.cpp
+        src/shadersLoader.cpp src/Shape.cpp)
 
 add_library(OOP_GL_lib ${HEADERS} ${SOURCES})
 target_include_directories(OOP_GL_lib PUBLIC include)
