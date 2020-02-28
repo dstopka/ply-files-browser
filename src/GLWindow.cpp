@@ -1,4 +1,5 @@
 #include <GLWindow.hpp>
+#include <iostream>
 #include <GridObject.hpp>
 #include <PolygonObject.hpp>
 #include <TriangleObject.hpp>
@@ -7,11 +8,12 @@
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <shaderLoader.h>
+
+GLWindow* GLWindow::instance = nullptr;
 
 GLWindow::GLWindow(const Data &data)
 {
-    this->shader = loadShaders("shaders/vertex_shader.glsl",
-            "shaders/fragment_shader.glsl");
     this->drawables.push_back(std::make_shared<GridObject>(data.minMaxValues));
     if(!data.triangleElements.empty())
         this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
@@ -33,7 +35,8 @@ void GLWindow::initScene(int &argc, char** &argv)
     glutMotionFunc(mouseMoveWrapper);
     glutDisplayFunc(displayWrapper);
     glutKeyboardFunc(keyboardInputWrapper);
-
+    this->shader = loadShaders("../shaders/vertex_shader.glsl",
+                               "../shaders/fragment_shader.glsl");
     glutMainLoop();
 }
 
@@ -90,9 +93,6 @@ void GLWindow::size(int width, int height)
     this->windowWidth = width;
     this->windowHeight = height;
     glViewport(0, 0, width, height);
-
-    //P = glm::perspective(glm::radians(60.0f), (GLfloat) screen_width / (GLfloat) screen_height, 1.0f, 1000.0f);
-    //idleWrapper();
 }
 
 void GLWindow::display()

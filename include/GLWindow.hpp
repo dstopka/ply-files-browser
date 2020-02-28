@@ -43,4 +43,5 @@ private:
     GLuint shader;
 };
 
+
 #endif //OOP_GL_GLWINDOW_HPP
