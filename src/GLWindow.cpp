@@ -34,8 +34,16 @@ void GLWindow::initScene(int &argc, char** &argv)
     glutMotionFunc(mouseMoveWrapper);
     glutDisplayFunc(displayWrapper);
     glutKeyboardFunc(keyboardInputWrapper);
+    std::cout << "shaders" << std::endl;
     this->shader = loadShaders("../shaders/vertex_shader.glsl",
                                "../shaders/fragment_shader.glsl");
+    for(auto &x : this->shapes)
+    {
+        x.generateVerticesBuffer();
+        for(auto &y : x.getObjects())
+            y->bindBuffers();
+    }
+    std::cout << "main loop" << std::endl;
     glutMainLoop();
 }
 
@@ -101,6 +109,7 @@ void GLWindow::display()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     std::vector<float> color = { 1,1,1,1 };
     glClearBufferfv(GL_COLOR, 0, color.data());
+    glUseProgram(this->shader);
     MV = glm::mat4(1.0f);
     MV = glm::translate(MV, glm::vec3(0, 0, cameraPosition.d));
     MV = glm::rotate(MV, (float) glm::radians(cameraPosition.z), glm::vec3(1, 0, 0));

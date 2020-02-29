@@ -1,6 +1,7 @@
 #include "GridObject.hpp"
 #include <vector>
 #include <array>
+#include <iostream>
 
 GridObject::GridObject(const Dimension<std::pair<float, float>> &minMaxValues) : minMaxValues(minMaxValues)
 {
@@ -10,6 +11,7 @@ GridObject::GridObject(const Dimension<std::pair<float, float>> &minMaxValues) :
 
 void GridObject::draw()
 {
+    //std::cout << "draw grid" << std::endl;
     glBindVertexArray(this->VAOWrappingLines);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawElements(GL_LINES, elementsWrappingLines.size(), GL_UNSIGNED_INT, 0);
@@ -18,6 +20,7 @@ void GridObject::draw()
     glBindVertexArray(this->VAODottedLines);
     glDrawElements(GL_LINES, elementsDottedLines.size(), GL_UNSIGNED_INT, 0);
     glDisable(GL_LINE_STIPPLE);
+    //std::cout << "grid drawn" << std::endl;
 }
 
 void GridObject::bindBuffers()

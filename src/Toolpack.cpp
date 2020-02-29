@@ -47,6 +47,8 @@ Data readFile(char *path)
         file.ignore(256, '\n');
     }
     data.minMaxValues = findMinMax(data.vertices);
+    normalise(data);
+    data.minMaxValues = findMinMax(data.vertices);
     file.close();
     return data;
 }
@@ -74,4 +76,15 @@ Dimension<std::pair<float, float>> findMinMax(std::vector<GLfloat> &vertices)
             minMax.z.second = vertices[i+2];
     }
     return minMax;
+}
+
+void normalise(Data &data)
+{
+    float delta = data.minMaxValues.z.second - data.minMaxValues.z.first;
+    for(int i = 0; i < data.vertices.size(); i += 3)
+    {
+        data.vertices[i] = (data.vertices[i] - data.minMaxValues.x.first) / delta;
+        data.vertices[i+1] = (data.vertices[i+1] - data.minMaxValues.y.first) / delta;
+        data.vertices[i+2] = (data.vertices[i+2] - data.minMaxValues.z.first) / delta;
+    }
 }

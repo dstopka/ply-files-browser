@@ -33,5 +33,6 @@ struct Mouse
 
 Data readFile(char* path);
 Dimension<std::pair<float, float>> findMinMax(std::vector<GLfloat> &vertices);
+void normalise(Data &data);
 
 #endif //OOP_GL_TOOLPACK_HPP
