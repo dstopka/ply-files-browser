@@ -15,6 +15,8 @@ private:
     unsigned int VBO;
     const Data data;
     std::vector<std::shared_ptr<Object>> objects;
+public:
+    const std::vector<std::shared_ptr<Object>> &getObjects() const;
 };
 
 

@@ -12,18 +12,12 @@
 
 GLWindow* GLWindow::instance = nullptr;
 
-GLWindow::GLWindow()
-{
-//    this->drawables.push_back(std::make_shared<GridObject>(data.minMaxValues));
-//    if(!data.triangleElements.empty())
-//        this->drawables.push_back(std::make_shared<TriangleObject>(data.vertices, data.triangleElements));
-//    if(!data.polygonElements.empty())
-//    this->drawables.push_back(std::make_shared<PolygonObject>(data.vertices, data.polygonElements));
-}
+GLWindow::GLWindow(){}
 
 void GLWindow::addShape(Data data)
 {
     this->shapes.emplace_back(data);
+    std::cout << "shape added" << std::endl;
 }
 
 void GLWindow::initScene(int &argc, char** &argv)
@@ -117,8 +111,9 @@ void GLWindow::display()
     GLuint MVP_id = glGetUniformLocation(this->shader, "MVP");
     glUniformMatrix4fv(MVP_id, 1, GL_FALSE,
                        &(MVP[0][0]));
-    for(auto &x : this->drawables)
-        x->draw();
+    for(auto &x : this->shapes)
+        for(auto &y : x.getObjects())
+            y->draw();
     glFlush();
     glutSwapBuffers();
 }

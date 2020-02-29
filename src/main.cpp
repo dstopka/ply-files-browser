@@ -8,6 +8,7 @@ int main(int argc, char** argv)
     for(auto i = 1; i <= argc; ++i)
         window.addShape(readFile(argv[i]));
 //        Data data = readFile(argv[1]);
+    std::cout << "init" << std::endl;
     window.initScene(argc, argv);
     return 0;
 }

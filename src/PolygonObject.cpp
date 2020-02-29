@@ -14,6 +14,7 @@ void PolygonObject::draw()
 
 void PolygonObject::bindBuffers()
 {
+    generateEbo();
     glGenVertexArrays(1, &(this->VAO));
     glBindVertexArray(this->VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);

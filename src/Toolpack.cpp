@@ -51,9 +51,9 @@ Data readFile(char *path)
     return data;
 }
 
-Dimension<std::pair<double, double>> findMinMax(std::vector<GLfloat> &vertices)
+Dimension<std::pair<float, float>> findMinMax(std::vector<GLfloat> &vertices)
 {
-    Dimension<std::pair<double, double>> minMax;
+    Dimension<std::pair<float, float>> minMax;
     minMax.x.first = minMax.x.second = vertices[0];
     minMax.y.first = minMax.y.second = vertices[1];
     minMax.z.first = minMax.z.second = vertices[2];

@@ -21,7 +21,7 @@ struct Data
     std::vector<GLfloat> vertices;
     std::vector<int> polygonElements;
     std::vector<int> triangleElements;
-    Dimension<std::pair<double, double>> minMaxValues;
+    Dimension<std::pair<float, float>> minMaxValues;
 };
 
 struct Mouse
@@ -32,6 +32,6 @@ struct Mouse
 };
 
 Data readFile(char* path);
-Dimension<std::pair<double, double>> findMinMax(std::vector<GLfloat> &vertices);
+Dimension<std::pair<float, float>> findMinMax(std::vector<GLfloat> &vertices);
 
 #endif //OOP_GL_TOOLPACK_HPP
