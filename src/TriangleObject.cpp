@@ -1,7 +1,8 @@
 #include "TriangleObject.hpp"
 #include <iostream>
 
-TriangleObject::TriangleObject(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO) : elements(elements), VBO(VBO)
+TriangleObject::TriangleObject(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ)
+: elements(elements), VBO(VBO), maxZ(maxZ)
 {}
 
 void TriangleObject::draw()
@@ -11,9 +12,13 @@ void TriangleObject::draw()
     glBindVertexArray(VAO);
     std::cout << "triagle:" << glGetError() << std::endl;
     std::cout << "triagle size:" << this->elements.size() << std::endl;
+    std::cout << "triagle size:" << maxZ << std::endl;
+    glVertexAttrib1f(1, maxZ);
+    std::cout << "attr:" << glGetError() << std::endl;
     glDrawElements(GL_TRIANGLES, elements.size(), GL_UNSIGNED_INT, 0);
-    std::cout << "triagle:" << glGetError() << std::endl;
+    std::cout << "drawn:" << glGetError() << std::endl;
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glVertexAttrib1f(1, 0);
     glDrawElements(GL_TRIANGLES, elements.size(), GL_UNSIGNED_INT, 0);
     std::cout << "triagle:" << glGetError() << std::endl;
 }

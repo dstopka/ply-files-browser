@@ -1,11 +1,11 @@
 #version 330 
 
 layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec3 max;
+layout (location = 1) in float max;
 
 uniform mat4 MVP;
 
-out vec3 outcol;
+out vec2 outcol;
 
 void main()
 {

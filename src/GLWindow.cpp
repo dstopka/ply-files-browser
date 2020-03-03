@@ -36,6 +36,7 @@ void GLWindow::initScene(int &argc, char** &argv)
     glutMotionFunc(mouseMoveWrapper);
     glutDisplayFunc(displayWrapper);
     glutKeyboardFunc(keyboardInputWrapper);
+    glEnable(GL_DEPTH_TEST);
     std::cout << "shaders" << std::endl;
     shader = loadShaders("../shaders/vertex_shader.glsl",
                                "../shaders/fragment_shader.glsl");

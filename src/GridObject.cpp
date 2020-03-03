@@ -14,11 +14,13 @@ void GridObject::draw()
     //std::cout << "draw grid" << std::endl;
     glBindVertexArray(this->VAOWrappingLines);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glVertexAttrib1f(1, 0);
     glDrawElements(GL_LINES, this->elementsWrappingLines.size(), GL_UNSIGNED_INT, 0);
     //std::cout << glGetError() << std::endl;
     glLineStipple(1, 0x1111);
     glEnable(GL_LINE_STIPPLE);
     glBindVertexArray(this->VAODottedLines);
+    glVertexAttrib1f(1, 0);
     glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, 0);
     glDisable(GL_LINE_STIPPLE);
     //std::cout << "grid drawn" << std::endl;

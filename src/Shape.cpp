@@ -11,9 +11,9 @@ Shape::Shape(Data data) : data(std::move(data))
     VBO = std::make_shared<unsigned int>();
     objects.push_back(std::make_shared<GridObject>(data.minMaxValues));
     if(!this->data.triangleElements.empty())
-        objects.push_back(std::make_shared<TriangleObject>(this->data.triangleElements, VBO));
+        objects.push_back(std::make_shared<TriangleObject>(this->data.triangleElements, VBO, data.minMaxValues.z.second));
     if(!this->data.polygonElements.empty())
-        objects.push_back(std::make_shared<PolygonObject>(this->data.polygonElements, VBO));
+        objects.push_back(std::make_shared<PolygonObject>(this->data.polygonElements, VBO, data.minMaxValues.z.second));
     std::cout << "buffer binding" << std::endl;
 }
 

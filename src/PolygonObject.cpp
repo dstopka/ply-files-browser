@@ -1,14 +1,17 @@
 #include "PolygonObject.hpp"
 
-PolygonObject::PolygonObject(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO) : elements(elements), VBO(VBO)
+PolygonObject::PolygonObject(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ)
+: elements(elements), VBO(VBO), maxZ(maxZ)
 {}
 
 void PolygonObject::draw()
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindVertexArray(VAO);
+    glVertexAttrib1f(1, maxZ);
     glDrawElements(GL_QUADS, elements.size(), GL_UNSIGNED_INT, 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glVertexAttrib1f(1, 0);
     glDrawElements(GL_QUADS, elements.size(), GL_UNSIGNED_INT, 0);
 }
 
