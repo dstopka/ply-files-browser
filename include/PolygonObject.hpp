@@ -5,17 +5,18 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <vector>
+#include <memory>
 
 class PolygonObject : public Object
 {
 public:
-    PolygonObject(const std::vector<int> &elements, const unsigned int &VBO);
+    PolygonObject(const std::vector<int> &elements, std::shared_ptr<unsigned int>VBO);
     void draw() override;
     void bindBuffers() override;
     void generateEbo() override;
 private:
     std::vector<int> elements;
-    unsigned int VBO;
+    std::shared_ptr<unsigned int> VBO;
     GLuint ebo;
     unsigned int VAO;
 };

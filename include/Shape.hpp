@@ -12,7 +12,7 @@ public:
     void generateVerticesBuffer();
 
 private:
-    unsigned int VBO;
+    std::shared_ptr<unsigned int> VBO;
     const Data data;
     std::vector<std::shared_ptr<Object>> objects;
 public:

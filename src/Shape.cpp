@@ -8,24 +8,24 @@
 Shape::Shape(Data data) : data(std::move(data))
 {
     std::cout << "constructor" << std::endl;
-    //this->generateVerticesBuffer();
-    this->objects.push_back(std::make_shared<GridObject>(this->data.minMaxValues));
+    VBO = std::make_shared<unsigned int>();
+    objects.push_back(std::make_shared<GridObject>(data.minMaxValues));
     if(!this->data.triangleElements.empty())
-        this->objects.push_back(std::make_shared<TriangleObject>(this->data.triangleElements, this->VBO));
+        objects.push_back(std::make_shared<TriangleObject>(this->data.triangleElements, VBO));
     if(!this->data.polygonElements.empty())
-        this->objects.push_back(std::make_shared<PolygonObject>(this->data.polygonElements, this->VBO));
+        objects.push_back(std::make_shared<PolygonObject>(this->data.polygonElements, VBO));
     std::cout << "buffer binding" << std::endl;
-//    for(auto &x : this->objects)
-//        x->bindBuffers();
 }
 
 void Shape::generateVerticesBuffer()
 {
     std::cout << "generate buffer" << std::endl;
-    glGenBuffers(1, &(this->VBO));
+    glGenBuffers(1, VBO.get());
     std::cout << "bind vbo" << std::endl;
-    glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->data.vertices.size() * sizeof(float), this->data.vertices.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+    std::cout << "vbo:" << glGetError() << std::endl;
+    glBufferData(GL_ARRAY_BUFFER, data.vertices.size() * sizeof(GLfloat), data.vertices.data(), GL_STATIC_DRAW);
+    std::cout << "vbo binded..." << std::endl;
 }
 
 const std::vector<std::shared_ptr<Object>> &Shape::getObjects() const
