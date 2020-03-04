@@ -9,7 +9,6 @@ Data readFile(char *path)
 {
     Data data;
     std::ifstream file;
-    std::cout << path << std::endl;
     file.open(path);
     if(!file.good() || file.eof())
         exit(0);
@@ -29,7 +28,7 @@ Data readFile(char *path)
         file>>vertex;
         data.vertices.push_back(vertex);
     }
-    std::cout << "Vertices loaded!" << std::endl;
+
     for(auto [i, type, element] = std::tuple(0, 0, 0); i < elementsNumber; ++i)
     {
         file>>type;
@@ -76,13 +75,6 @@ Dimension<std::pair<float, float>> findMinMax(std::vector<GLfloat> &vertices)
         if(vertices[i+2] > minMax.z.second)
             minMax.z.second = vertices[i+2];
     }
-    std::cout << std::endl;
-    std::cout << "x.max " << minMax.x.second << std::endl;
-    std::cout << "y.max " << minMax.y.second << std::endl;
-    std::cout << "z.max " << minMax.z.second << std::endl;
-    std::cout << "x.min " << minMax.x.first << std::endl;
-    std::cout << "y.min " << minMax.y.first << std::endl;
-    std::cout << "z.min " << minMax.z.first << std::endl << std::endl;
     return minMax;
 }
 
