@@ -1,25 +1,19 @@
 #include <GLWindow.hpp>
-#include <iostream>
-#include <GridObject.hpp>
-#include <PolygonObject.hpp>
-#include <TriangleObject.hpp>
-#include <Object.hpp>
 #include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <shaderLoader.h>
 
 GLWindow* GLWindow::instance = nullptr;
 
-GLWindow::GLWindow(){
+GLWindow::GLWindow()
+{
     cameraPosition = {0.0, -60.0, 45.0, -3.0};
 }
 
 void GLWindow::addShape(Data data)
 {
     shapes.emplace_back(data);
-    std::cout << "shape added" << std::endl;
 }
 
 void GLWindow::initScene(int &argc, char** &argv)
@@ -37,16 +31,11 @@ void GLWindow::initScene(int &argc, char** &argv)
     glutDisplayFunc(displayWrapper);
     glutKeyboardFunc(keyboardInputWrapper);
     glEnable(GL_DEPTH_TEST);
-    std::cout << "shaders" << std::endl;
     shader = loadShaders("../shaders/vertex_shader.glsl",
                                "../shaders/fragment_shader.glsl");
     for(auto &x : shapes)
-    {
-        x.generateVerticesBuffer();
-        for(auto &y : x.getObjects())
-            y->bindBuffers();
-    }
-    std::cout << "main loop" << std::endl;
+        x.createPolygons();
+
     glutMainLoop();
 }
 
@@ -123,10 +112,8 @@ void GLWindow::display()
     GLuint MVP_id = glGetUniformLocation(this->shader, "MVP");
     glUniformMatrix4fv(MVP_id, 1, GL_FALSE,
                        &(MVP[0][0]));
-//    for(auto &x : this->shapes)
-//        for(auto &y : x.getObjects())
-//            y->draw();
-    this->shapes[0].getObjects()[1]->draw();
+    for(auto &x : this->shapes)
+        x.draw();
     glFlush();
     glutSwapBuffers();
 }

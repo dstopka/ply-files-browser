@@ -1,6 +1,6 @@
 #ifndef OOP_GL_GLWINDOW_HPP
 #define OOP_GL_GLWINDOW_HPP
-#include <Object.hpp>
+#include <Polygon.hpp>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <utility>
@@ -9,7 +9,7 @@
 #include <glm/mat4x4.hpp>
 #include <Toolpack.hpp>
 #include <shaderLoader.h>
-#include <Shape.hpp>
+#include <Mesh.hpp>
 
 class GLWindow
 {
@@ -34,7 +34,7 @@ public:
     void setInstance();
 
 private:
-    std::vector<Shape> shapes;
+    std::vector<Mesh> shapes;
     Dimension<double> cameraPosition;
     Dimension<double> previousCameraPosition;
     Mouse mouse;

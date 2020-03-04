@@ -1,15 +1,16 @@
-#ifndef OOP_GL_TRIANGLEOBJECT_HPP
-#define OOP_GL_TRIANGLEOBJECT_HPP
-#include <Object.hpp>
+#ifndef OOP_GL_QUAD_HPP
+#define OOP_GL_QUAD_HPP
+
+#include <Polygon.hpp>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <vector>
 #include <memory>
 
-class TriangleObject : public Object
+class Quad : public Polygon
 {
 public:
-    TriangleObject(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ);
+    Quad(const std::vector<int> &elements, std::shared_ptr<unsigned int>VBO, float maxZ);
     void draw() override;
     void bindBuffers() override;
     void generateEbo() override;
@@ -21,4 +22,4 @@ private:
     float maxZ;
 };
 
-#endif //OOP_GL_TRIANGLEOBJECT_HPP
+#endif //OOP_GL_QUAD_HPP

@@ -1,7 +1,7 @@
-#ifndef OOP_GL_OBJECT_HPP
-#define OOP_GL_OBJECT_HPP
+#ifndef OOP_GL_POLYGON_HPP
+#define OOP_GL_POLYGON_HPP
 
-class Object
+class Polygon
 {
 public:
     virtual void draw() = 0;
@@ -9,4 +9,4 @@ public:
     virtual void generateEbo() = 0;
 };
 
-#endif //OOP_GL_OBJECT_HPP
+#endif //OOP_GL_POLYGON_HPP

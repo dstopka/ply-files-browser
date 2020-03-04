@@ -1,10 +1,10 @@
-#include "PolygonObject.hpp"
+#include "Quad.hpp"
 
-PolygonObject::PolygonObject(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ)
+Quad::Quad(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ)
 : elements(elements), VBO(VBO), maxZ(maxZ)
 {}
 
-void PolygonObject::draw()
+void Quad::draw()
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBindVertexArray(VAO);
@@ -15,7 +15,7 @@ void PolygonObject::draw()
     glDrawElements(GL_QUADS, elements.size(), GL_UNSIGNED_INT, 0);
 }
 
-void PolygonObject::bindBuffers()
+void Quad::bindBuffers()
 {
     generateEbo();
     glGenVertexArrays(1, &VAO);
@@ -26,7 +26,7 @@ void PolygonObject::bindBuffers()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0 );
 }
 
-void PolygonObject::generateEbo()
+void Quad::generateEbo()
 {
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
