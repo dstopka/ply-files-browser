@@ -1,7 +1,9 @@
 #include "Quad.hpp"
 
-Quad::Quad(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ)
-: elements(elements), VBO(VBO), maxZ(maxZ)
+#include <utility>
+
+Quad::Quad(std::vector<int> elements, const std::shared_ptr<unsigned int>& VBO, const float& maxZ)
+: elements(std::move(elements)), VBO(VBO), maxZ(maxZ)
 {}
 
 void Quad::draw()

@@ -8,10 +8,12 @@ GLWindow* GLWindow::instance = nullptr;
 
 GLWindow::GLWindow()
 {
+    windowWidth = WINDOW_WIDTH;
+    windowHeight = WINDOW_HEIGHT;
     cameraPosition = {0.0, -60.0, 45.0, -3.0};
 }
 
-void GLWindow::addShape(Data data)
+void GLWindow::addShape(const Data& data)
 {
     shapes.emplace_back(data);
 }
@@ -152,5 +154,6 @@ void GLWindow::setInstance()
 {
     instance = this;
 }
+
 
 

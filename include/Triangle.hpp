@@ -9,7 +9,7 @@
 class Triangle : public Polygon
 {
 public:
-    Triangle(const std::vector<int> &elements, std::shared_ptr<unsigned int> VBO, float maxZ);
+    Triangle(std::vector<int> elements, const std::shared_ptr<unsigned int>& VBO, const float& maxZ);
     void draw() override;
     void bindBuffers() override;
     void generateEbo() override;
